@@ -1,24 +1,19 @@
-import { useState } from "react";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Sidebar from "./components/SideBar";
-import MovieList from "./components/cine/MovieList";
-import { movieCartContext } from "./context";
+import { useReducer, useState } from "react";
+import Page from "./components//Page.jsx";
+import { movieCartContext, themeContext } from "./context";
+import { cartReducer, initialState } from "./reducer/CartReducer.js";
 function App() {
-  const [cartData, setCartData] = useState([]);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+  // const [cartData, setCartData] = useState([]);
+  const [darkMode, setDarkMode] = useState(true);
+
   return (
-    <div>
-      <movieCartContext.Provider value={{ cartData, setCartData }}>
-        <Header />
-        <main>
-          <div className="container grid lg:grid-cols-[218px_1fr] gap-[3.5rem]">
-            <Sidebar />
-            <MovieList />
-          </div>
-        </main>
+    <themeContext.Provider value={{ darkMode, setDarkMode }}>
+      {/* <movieCartContext.Provider value={{ cartData, setCartData }}> */}
+      <movieCartContext.Provider value={{ state, dispatch }}>
+        <Page />
       </movieCartContext.Provider>
-      <Footer />
-    </div>
+    </themeContext.Provider>
   );
 }
 

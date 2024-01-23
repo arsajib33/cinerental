@@ -7,17 +7,22 @@ import Rating from "./Rating";
 export default function MovieCard({ movie }) {
   const [showodal, setShowModal] = useState(false);
   const [seletedMovie, setSelectedMovie] = useState(null);
-  const { cartData, setCartData } = useContext(movieCartContext);
+  // const { cartData, setCartData } = useContext(movieCartContext);
+  const { state, dispatch } = useContext(movieCartContext);
 
   const hadleAddTocart = (e, movie) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const found = cartData.find((card) => {
+    const found = state.cartData.find((card) => {
       return card.id === movie.id;
     });
     if (!found) {
-      setCartData([...cartData, movie]);
+      // setCartData([...cartData, movie]);
+      dispatch({
+        type: "addToCart",
+        payload: movie,
+      });
     } else {
       console.log("movie already have in cart");
     }
