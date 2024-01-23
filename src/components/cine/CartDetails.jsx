@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import deleteLogo from "../../assets/delete.svg";
 import checkout from "../../assets/icons/checkout.svg";
 import { movieCartContext } from "../../context";
@@ -55,6 +56,7 @@ export default function CartDetails({ onClose }) {
                             type: "removeFromCart",
                             payload: data,
                           });
+                          toast.warning(`The Movie ${data.title} is deleted.`);
                         }}
                         className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white"
                       >
